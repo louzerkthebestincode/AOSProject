@@ -1,0 +1,66 @@
+AOSProject/
+├── pyproject.toml                  # (existing) Package config & `deadlock-sim` CLI entry point
+├── requirements.txt                # (existing) Dependencies (stdlib for core; matplotlib for charts)
+├── README.md                       # (existing) Setup, CLI usage, architecture overview
+│
+├── src/                            # (existing) Main Python package
+│   └── deadlock_simulator/
+│       ├── __init__.py             # Package metadata & exports
+│       ├── __main__.py             # CLI entry point (`python -m src.deadlock_simulator --scenario ...`)
+│       ├── logging_config.py       # Standardized logger (Date, Level, PID, Thread ID, Task, Code)
+│       │
+│       ├── domain/                 # (existing) Core data models & exceptions
+│       │   ├── __init__.py
+│       │   ├── process.py          # Process entity & Linux states (R, S, D, T, Z, I)
+│       │   ├── resource.py         # Resource entity (single & multi-instance capacity)
+│       │   ├── events.py           # Simulation event records (Request, Alloc, Wait, Release, Abort)
+│       │   └── exceptions.py       # DeadlockVictimError, ResourceNotFoundError, OrderViolationError
+│       │
+│       ├── core/                   # (existing) OS deadlock engine
+│       │   ├── __init__.py
+│       │   ├── resource_manager.py # Centralized Lock, Conditions, FIFO fairness, timeouts, total order
+│       │   ├── wait_for_graph.py   # Builds RAG / Wait-For Graph (WFG) from allocations & wait queues
+│       │   ├── detector.py         # DFS cycle detection algorithm
+│       │   └── recovery.py         # Victim selection policy & preemption/release verification
+│       │
+│       ├── concurrency/            # (existing) Thread lifecycle & orchestration
+│       │   ├── __init__.py
+│       │   ├── worker.py           # Worker thread loop (request -> work -> guaranteed finally release)
+│       │   ├── detector_daemon.py  # Background daemon thread running periodic DFS checks
+│       │   └── orchestrator.py     # Starts/joins threads, handles RuntimeError & Ctrl+C shutdown
+│       │
+│       └── scenarios/              # (existing) Runnable test & demo scenarios
+│           ├── __init__.py
+│           ├── safe.py             # Normal execution without deadlock
+│           ├── deadlock.py         # 2-process forced circular wait + recovery
+│           ├── philosophers.py     # Dining Philosophers (5 threads, 5 forks)
+│           ├── prevention.py       # Total ordering prevention extension (zero deadlocks)
+│           └── errors.py           # Controlled error cases (missing resource, timeout, bad input)
+│
+├── tests/                          # (existing) Automated unit & integration tests
+│   ├── test_invariants.py          # Capacity bounds, FIFO fairness, clean release verification
+│   ├── test_detector.py            # DFS cycle detection on known graphs (acyclic, 2-node, N-node)
+│   ├── test_recovery.py            # Victim selection & deadlock resolution
+│   └── test_prevention.py          # Total ordering enforcement & OrderViolationError
+│
+├── experiments/                    # (existing) Reproducible benchmarks & visuals
+│   ├── run_benchmarks.py           # Runs N = 2, 5, 10, 15, 20 trials & records detection/recovery times
+│   ├── generate_charts.py          # Reads CSV/logs and outputs matplotlib figures
+│   ├── params.json                 # Saved input parameters for reproducibility
+│   ├── results/                    # (existing target) Raw CSV data & summary tables
+│   │   └── experimental_data.csv
+│   └── figures/                    # Generated PNG/PDF charts for the LaTeX report
+│       ├── performance_dfs.png
+│       └── resultats_scenarios.png
+│
+├── logs/                           # (existing) Auto-generated runtime execution traces
+│   └── simulation.log
+│
+└── docs/                           # (existing) Academic deliverables
+    ├── report/                     # (existing) 12–15 page LaTeX report
+    │   ├── rapport.tex
+    │   ├── cipher_theme.sty
+    │   ├── LOGO_USTO.pdf
+    │   └── LOGO_FMI.pdf
+    └── presentation/               # (existing) 10-minute Beamer slides
+        └── presentation.tex

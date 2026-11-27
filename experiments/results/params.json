@@ -1,0 +1,13 @@
+{
+  "process_counts": [
+    2,
+    5,
+    10,
+    15,
+    20
+  ],
+  "hold_delay_s": 0.4,
+  "work_delay_s": 0.1,
+  "check_interval_s": 0.15,
+  "timeout_s": 15.0
+}

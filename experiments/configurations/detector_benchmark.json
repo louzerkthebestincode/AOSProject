@@ -1,0 +1,7 @@
+{
+  "experiment": "wait_for_graph_cycle_detection",
+  "description": "Mesure du détecteur sur des graphes en chaîne, avec et sans cycle.",
+  "graph_sizes": [10, 50, 100, 250, 500],
+  "repetitions": 10,
+  "scenarios": ["acyclic_chain", "single_cycle_chain"]
+}

@@ -1,0 +1,11 @@
+run_id,scenario,graph_size_nodes,repetitions,mean_elapsed_ns,median_elapsed_ns,min_elapsed_ns,max_elapsed_ns,cycles_expected
+detector_initial_01,acyclic_chain,10,10,4940,4300.0,3300,11400,0
+detector_initial_01,acyclic_chain,50,10,17210,14700.0,13200,41400,0
+detector_initial_01,acyclic_chain,100,10,46360,32750.0,30100,139300,0
+detector_initial_01,acyclic_chain,250,10,92420,90550.0,85700,106200,0
+detector_initial_01,acyclic_chain,500,10,208110,185900.0,174900,384800,0
+detector_initial_01,single_cycle_chain,10,10,4300,3400.0,3200,11100,1
+detector_initial_01,single_cycle_chain,50,10,16270,13700.0,13500,35900,1
+detector_initial_01,single_cycle_chain,100,10,33410,32550.0,30700,37700,1
+detector_initial_01,single_cycle_chain,250,10,90970,91100.0,84100,96900,1
+detector_initial_01,single_cycle_chain,500,10,231590,193000.0,174200,517800,1
