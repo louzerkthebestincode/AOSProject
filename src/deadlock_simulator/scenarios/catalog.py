@@ -85,7 +85,7 @@ def run_errors(timeout: float = 1.0, check_interval: float = 0.25) -> tuple[int,
     specs = [
         WorkerSpec("P_MissingRes", ["R99"], hold_delay=0.2, timeout=timeout),
         WorkerSpec("P_SlowHolder", ["R1"], hold_delay=2.5, work_delay=0.2, timeout=5.0),
-        WorkerSpec("P_Timeout", ["R1"], hold_delay=0.2, timeout=timeout),
+        WorkerSpec("P_Timeout", ["R1"], hold_delay=0.2, timeout=min(timeout, 1.0)),
     ]
     runner = SimulationRunner(rm, use_detector=False, check_interval=check_interval)
     code = runner.run(specs)
